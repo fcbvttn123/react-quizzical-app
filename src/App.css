@@ -1,6 +1,12 @@
 button {
-    padding: .75rem 3rem;
+    padding: .8rem 3rem;
+    border-radius: 15px;
     background-color: #4D5B9E;
+
+    display: grid;
+    place-content: center;
+
+    font-family: Inter;
+    font-weight: 500;
     color: white;
-    border-radius: 10px;
 }

@@ -5,13 +5,18 @@ import { StartScreen } from "./components/StartScreen.jsx";
 import { QuizScreen } from "./components/QuizScreen.jsx";
 
 function App() {
-  const [currentScreen, setCurrentScreen] = useState("startScreen");
+  const [currentScreen, setCurrentScreen] = useState("StartScreen");
   function switchScreen() {
-    setCurrentScreen(prev => prev == "startScreen" ? "quizScreen" : "startScreen")
+    setCurrentScreen(prev => prev == "StartScreen" ? "QuizScreen" : "StartScreen")
   }
   return (
     <div className="main">
-      {currentScreen == "startScreen" ? <StartScreen /> : <QuizScreen />}
+      {
+        /* Switch Screen conditionally */
+        currentScreen == "StartScreen" ? 
+          <StartScreen switchScreen={switchScreen}/> : 
+          <QuizScreen switchScreen={switchScreen}/>
+      }
     </div>
   )
 }
