@@ -4,7 +4,7 @@ let URL = "https://opentdb.com/api.php?amount=5&category=12&difficulty=medium&ty
 export function QuizScreen(props) {
     const [questions, setQuestions] = useState([])
     function renderQuestionBoxComponents() {
-        console.log("Render QuestionBox Components")
+        console.log(questions)
     }
     useEffect(() => {
         async function getQuestions() {
@@ -19,9 +19,7 @@ export function QuizScreen(props) {
         }
         getQuestions()
     }, [])
-    useEffect(() => {
-        questions.length > 0 && renderQuestionBoxComponents()
-    }, [questions])
+    questions && questions.length > 0 && renderQuestionBoxComponents()
     return (
         <div className="quiz-screen">
             <h1>Quiz Screen</h1>
