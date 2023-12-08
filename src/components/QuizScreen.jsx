@@ -19,11 +19,17 @@ export function QuizScreen(props) {
                     e.incorrect_answers = e.incorrect_answers.map(e => decode(e, {level: "html5"}))
                     // Add correct answer and Shuffle answers array 
                     let answers = shuffleArray([decode(e.correct_answer, {level: "html5"}), ...e.incorrect_answers])
-                    // Update answwers array
+                    // Update answers array
+                    answers = answers.map(str => ({
+                        answer_id: nanoid(), 
+                        answer_value: str, 
+                        beChosen: false
+                    }))
                     return {
+                        question_id: nanoid(),
                         question: decode(e.question, {level: "html5"}), 
-                        answers,
-                        correct_answer: e.correct_answer
+                        correct_answer: e.correct_answer,
+                        answers
                     }
                 }))
             } catch (error) {
