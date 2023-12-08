@@ -1,27 +1,31 @@
 import { useEffect, useState } from "react";
 import { decode } from "html-entities";
+import { shuffleArray } from "./utilities/shuffleArray";
 let URL = "https://opentdb.com/api.php?amount=5&category=12&difficulty=medium&type=multiple"
 
 export function QuizScreen(props) {
     const [questions, setQuestions] = useState([])
+    console.log(questions)
     useEffect(() => {
         async function getQuestions() {
             try {
                 let res = await fetch(URL)
                 let data = await res.json()
                 let quesArr = data.results
-                quesArr && quesArr.length > 0 && quesArr.forEach(e => decodeInsertShuffle(e.question, e.correct_answer, e.incorrect_answers))
+                quesArr && quesArr.length > 0 && setQuestions(quesArr.map(e => {
+                    e.incorrect_answers.push(e.correct_answer)
+                    return {
+                        question: decode(e.question, {level: "html5"}), 
+                        answers: shuffleArray(e.incorrect_answers),
+                        correct_answer: e.correct_answer
+                    }
+                }))
             } catch (error) {
                 console.error("Error fetching questions:", error);
             }
         }
         getQuestions()
     }, [])
-    function decodeInsertShuffle(question_to_be_decoded, correct_answer, incorrect_answers) {
-        console.log(decode(question_to_be_decoded, {level: "html5"}))
-        console.log(correct_answer)
-        console.log(incorrect_answers)
-    }
     return (
         <div className="quiz-screen">
             <h1>Quiz Screen</h1>
