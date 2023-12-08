@@ -55,9 +55,12 @@
 
         [
             {
+                question_id: "",
                 question: "",
-                answers: ["", "", "", ""],
-                correct_answer: ""
+                correct_answer: "",
+                answers: [
+                    {answer_id: "", answer_value: "", beChosen: false}
+                ]
             }
         ]
 
