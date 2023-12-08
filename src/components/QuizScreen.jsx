@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { decode } from "html-entities";
 import { shuffleArray } from "./utilities/shuffleArray";
 import { QuestionBox } from "./QuestionBox";
+import { nanoid } from 'nanoid'
 let URL = "https://opentdb.com/api.php?amount=5&category=12&difficulty=medium&type=multiple"
 
 export function QuizScreen(props) {
     const [questions, setQuestions] = useState([])
+    console.log(questions)
     useEffect(() => {
         async function getQuestions() {
             try {
@@ -13,10 +15,14 @@ export function QuizScreen(props) {
                 let data = await res.json()
                 let quesArr = data.results
                 quesArr && quesArr.length > 0 && setQuestions(quesArr.map(e => {
-                    e.incorrect_answers.push(e.correct_answer)
+                    // Decode incorrect answer array
+                    e.incorrect_answers = e.incorrect_answers.map(e => decode(e, {level: "html5"}))
+                    // Add correct answer and Shuffle answers array 
+                    let answers = shuffleArray([decode(e.correct_answer, {level: "html5"}), ...e.incorrect_answers])
+                    // Update answwers array
                     return {
                         question: decode(e.question, {level: "html5"}), 
-                        answers: shuffleArray(e.incorrect_answers),
+                        answers,
                         correct_answer: e.correct_answer
                     }
                 }))
