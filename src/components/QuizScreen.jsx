@@ -7,7 +7,6 @@ let URL = "https://opentdb.com/api.php?amount=5&category=12&difficulty=medium&ty
 
 export function QuizScreen(props) {
     const [questions, setQuestions] = useState([])
-    console.log(questions)
     useEffect(() => {
         async function getQuestions() {
             try {
@@ -41,7 +40,11 @@ export function QuizScreen(props) {
     return (
         <div className="quiz-screen">
             <h1>Quiz Screen</h1>
-            <QuestionBox />
+            <div className="all-questions">
+                {questions.map(e => {
+                    return <QuestionBox key={e.question_id} questionId={e.question_id} question={e.question} answers={e.answers}/>
+                })}
+            </div>
             <button onClick={props.switchScreen}>Play again</button>
         </div>
     )
