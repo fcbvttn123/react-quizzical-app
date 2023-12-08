@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { decode } from "html-entities";
 import { shuffleArray } from "./utilities/shuffleArray";
+import { QuestionBox } from "./QuestionBox";
 let URL = "https://opentdb.com/api.php?amount=5&category=12&difficulty=medium&type=multiple"
 
 export function QuizScreen(props) {
     const [questions, setQuestions] = useState([])
-    console.log(questions)
     useEffect(() => {
         async function getQuestions() {
             try {
@@ -29,6 +29,7 @@ export function QuizScreen(props) {
     return (
         <div className="quiz-screen">
             <h1>Quiz Screen</h1>
+            <QuestionBox />
             <button onClick={props.switchScreen}>Play again</button>
         </div>
     )

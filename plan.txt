@@ -55,8 +55,9 @@
 
         [
             {
-                questions: "",
-                answers: ["", "", "", ""]
+                question: "",
+                answers: ["", "", "", ""],
+                correct_answer: ""
             }
         ]
 
