@@ -7,11 +7,12 @@ let URL = "https://opentdb.com/api.php?amount=5&category=12&difficulty=medium&ty
 
 export function QuizScreen(props) {
     const [questions, setQuestions] = useState([])
-    console.log(questions)
     function answerButtonOnClick(questionId, answerId) {
         setQuestions(prev => {
             return prev.map(question => {
+                // Find the question that need to be updated of state
                 if(question.question_id == questionId) {
+                    // Find the answer button that need to be updated
                     let updatedAnswers = question.answers.map(answer => {
                         if(answer.answer_id == answerId) {
                             return {

@@ -10,7 +10,9 @@ export function QuestionBox(props) {
                 props.answerButtonOnClick(props.questionId, e.answer_id)
               }
             />
-            <label htmlFor={e.answer_id}>{e.answer_value}</label>
+            <label htmlFor={e.answer_id} style={e.beChosen ? {backgroundColor: "green"} : {}}>
+                    {e.answer_value}
+            </label>
           </div>
         );
     })
