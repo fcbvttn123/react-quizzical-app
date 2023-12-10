@@ -36,6 +36,25 @@ export function QuizScreen(props) {
             })
         })
     }
+    function checkAnswers() {
+        // Change green background for all correct answers 
+        setQuestions(prev => prev.map(question => {
+            let customAnswers = question.answers.map(answer => {
+                if(answer.answer_value == question.correct_answer) {
+                    return {
+                        ...answer,
+                        beChosen: true
+                    }
+                } else {
+                    return {...answer}
+                }
+            })
+            return {
+                ...question, 
+                answers: customAnswers
+            }
+        }))
+    }
     useEffect(() => {
         async function getQuestions() {
             try {
@@ -74,7 +93,7 @@ export function QuizScreen(props) {
                     return <QuestionBox key={e.question_id} questionId={e.question_id} question={e.question} answers={e.answers} answerButtonOnClick={answerButtonOnClick}/>
                 })}
             </div>
-            <button onClick={props.switchScreen}>Play again</button>
+            <button onClick={checkAnswers}>Check Answers</button>
         </div>
     )
 }
