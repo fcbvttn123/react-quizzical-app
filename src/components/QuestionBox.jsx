@@ -11,7 +11,7 @@ export function QuestionBox(props) {
               }
             />
             <label htmlFor={e.answer_id} style={e.beChosen ? {backgroundColor: "green"} : {}}>
-                    {e.answer_value}
+              {e.answer_value}
             </label>
           </div>
         );

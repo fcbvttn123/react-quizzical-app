@@ -36,6 +36,20 @@ export function QuizScreen(props) {
             })
         })
     }
+    function checkAnswers() {
+        questions.forEach(question => {
+            let chosenAnswer = question.answers.find(answer => answer.beChosen)
+            if(chosenAnswer) {
+                if(question.correct_answer == chosenAnswer.answer_value) {
+                    console.log("Correct Answer")
+                } else {
+                    console.log("Incorrect Answer")
+                }
+            } else {
+                console.log("Incorrect Answer")
+            }
+        })
+    }
     useEffect(() => {
         async function getQuestions() {
             try {
@@ -74,7 +88,7 @@ export function QuizScreen(props) {
                     return <QuestionBox key={e.question_id} questionId={e.question_id} question={e.question} answers={e.answers} answerButtonOnClick={answerButtonOnClick}/>
                 })}
             </div>
-            <button onClick={props.switchScreen}>Play again</button>
+            <button onClick={checkAnswers}>Check Answers</button>
         </div>
     )
 }

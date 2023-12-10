@@ -59,7 +59,11 @@
                 question: "",
                 correct_answer: "",
                 answers: [
-                    {answer_id: "", answer_value: "", beChosen: false}
+                    {
+                        answer_id: "", 
+                        answer_value: "", 
+                        beChosen: false
+                    }
                 ]
             }
         ]
