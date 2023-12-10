@@ -37,18 +37,23 @@ export function QuizScreen(props) {
         })
     }
     function checkAnswers() {
-        questions.forEach(question => {
-            let chosenAnswer = question.answers.find(answer => answer.beChosen)
-            if(chosenAnswer) {
-                if(question.correct_answer == chosenAnswer.answer_value) {
-                    console.log("Correct Answer")
+        // Change green background for all correct answers 
+        setQuestions(prev => prev.map(question => {
+            let customAnswers = question.answers.map(answer => {
+                if(answer.answer_value == question.correct_answer) {
+                    return {
+                        ...answer,
+                        beChosen: true
+                    }
                 } else {
-                    console.log("Incorrect Answer")
+                    return {...answer}
                 }
-            } else {
-                console.log("Incorrect Answer")
+            })
+            return {
+                ...question, 
+                answers: customAnswers
             }
-        })
+        }))
     }
     useEffect(() => {
         async function getQuestions() {
