@@ -1,5 +1,6 @@
 export function QuestionBox(props) {
     let answerButtons = props.answers.map(e => {
+      let dynamicStyle = {backgroundColor: e.backgroundColor}
         return (
           <div className="answer-buttons" key={e.answer_id}>
             <input
@@ -10,7 +11,7 @@ export function QuestionBox(props) {
                 props.answerButtonOnClick(props.questionId, e.answer_id)
               }
             />
-            <label htmlFor={e.answer_id} style={e.beChosen ? {backgroundColor: "green"} : {}}>
+            <label htmlFor={e.answer_id} style={dynamicStyle}>
               {e.answer_value}
             </label>
           </div>
