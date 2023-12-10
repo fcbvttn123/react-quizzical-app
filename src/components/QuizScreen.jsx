@@ -17,12 +17,14 @@ export function QuizScreen(props) {
                         if(answer.answer_id == answerId) {
                             return {
                                 ...answer,
-                                 beChosen: !answer.beChosen
+                                beChosen: !answer.beChosen,
+                                backgroundColor: "green"
                             }
                         } else {
                             return {
                                 ...answer,
-                                 beChosen: false
+                                beChosen: false,
+                                backgroundColor: "white"
                             }
                         }
                     })
@@ -37,16 +39,26 @@ export function QuizScreen(props) {
         })
     }
     function checkAnswers() {
-        // Change green background for all correct answers 
         setQuestions(prev => prev.map(question => {
             let customAnswers = question.answers.map(answer => {
+                // Change green background for all correct answers 
                 if(answer.answer_value == question.correct_answer) {
                     return {
                         ...answer,
-                        beChosen: true
+                        backgroundColor: "green"
                     }
+                // Other Answers
                 } else {
-                    return {...answer}
+                    // Chosen Answer
+                    if(answer.beChosen) {
+                        return {
+                            ...answer,
+                            backgroundColor: "red"
+                        }
+                    // Other Answers
+                    } else {
+                        return {...answer}
+                    }
                 }
             })
             return {
@@ -70,7 +82,8 @@ export function QuizScreen(props) {
                     answers = answers.map(str => ({
                         answer_id: nanoid(), 
                         answer_value: str, 
-                        beChosen: false
+                        beChosen: false,
+                        backgroundColor: "white"
                     }))
                     return {
                         question_id: nanoid(),
