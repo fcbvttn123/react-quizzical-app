@@ -10,3 +10,135 @@ button {
     font-weight: 500;
     color: white;
 }
+
+/* Main Section */
+
+.main {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+
+    display: grid;
+    place-content: center;
+}
+
+.main .yellow-blob {
+    position: absolute;
+    right: -160px;
+    top: -160px;
+    z-index: -1;
+
+    width: 297px;
+    height: 235px;
+    border-radius: 60px;
+    background: #FFFAD1;
+    transform: rotate(131deg);
+}
+
+.main .blue-blob {
+    position: absolute;
+    bottom: -70px;
+    left: -150px;
+
+    width: 297px;
+    height: 135px;
+    background: #DEEBF8;
+    border-radius: 70px;
+    transform: rotate(-15deg);
+}
+
+/* Start Screen */
+
+.main .start-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main .start-screen h1 {
+    font-family: Karla;
+    font-size: 31px;
+    font-weight: 700;
+    line-height: 37px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #293264;
+} 
+
+.main .start-screen p {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #293264;
+    margin-top: .2rem;
+    margin-bottom: 1.3rem;
+}
+
+
+
+
+/* Quiz Screen */
+
+.quiz-screen {
+    height: 485px;
+    width: 520px;
+}
+
+.quiz-screen .all-questions .question-box {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #DBDEF0;
+}
+
+.quiz-screen .all-questions .question-box h1 {
+    font-family: Karla;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #293264;
+    margin-bottom: .8rem;
+}
+
+.quiz-screen .question-box .answer-buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: .5rem;
+}
+
+.quiz-screen .question-box .answer-buttons {
+    position: relative;
+    isolation: isolate;
+}
+
+.quiz-screen .question-box .answer-buttons input {
+    position: absolute;
+    z-index: -1;
+}
+
+.quiz-screen .question-box .answer-buttons label {
+    display: block;
+    padding: .2rem .5rem;
+    border-radius: 7.94px;
+    border: 1.3px solid #293264;
+    min-width: 65px;
+    cursor: pointer;
+
+    font-family: Inter;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+
+.quiz-screen .check-answer-btn {
+    margin: 2rem auto 0;
+}

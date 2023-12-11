@@ -19,7 +19,7 @@ export function QuizScreen(props) {
                             return {
                                 ...answer,
                                 beChosen: !answer.beChosen,
-                                backgroundColor: "green"
+                                backgroundColor: "#94D7A2"
                             }
                         } else {
                             return {
@@ -46,7 +46,7 @@ export function QuizScreen(props) {
                 if(answer.answer_value == question.correct_answer) {
                     return {
                         ...answer,
-                        backgroundColor: "green"
+                        backgroundColor: "#94D7A2"
                     }
                 // Other Answers
                 } else {
@@ -54,7 +54,7 @@ export function QuizScreen(props) {
                     if(answer.beChosen) {
                         return {
                             ...answer,
-                            backgroundColor: "red"
+                            backgroundColor: "#F8BCBC"
                         }
                     // Other Answers
                     } else {
@@ -93,7 +93,7 @@ export function QuizScreen(props) {
                 return {
                     question_id: nanoid(),
                     question: decode(e.question, {level: "html5"}), 
-                    correct_answer: e.correct_answer,
+                    correct_answer: decode(e.correct_answer, {level: "html5"}),
                     answers
                 }
             }))
@@ -106,13 +106,12 @@ export function QuizScreen(props) {
     }, [])
     return (
         <div className="quiz-screen">
-            <h1>Quiz Screen</h1>
             <div className="all-questions">
                 {questions.map(e => {
                     return <QuestionBox key={e.question_id} questionId={e.question_id} question={e.question} answers={e.answers} answerButtonOnClick={answerButtonOnClick} answersChecked={answersChecked}/>
                 })}
             </div>
-            <button onClick={answersChecked ? resetGame : checkAnswers}>{answersChecked ? "Play Again" : "Check Answers"}</button>
+            <button className="check-answer-btn" onClick={answersChecked ? resetGame : checkAnswers}>{answersChecked ? "Play Again" : "Check Answers"}</button>
         </div>
     )
 }

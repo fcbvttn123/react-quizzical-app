@@ -21,7 +21,9 @@ export function QuestionBox(props) {
     return (
         <div className="question-box" id={props.questionId}>
             <h1>{props.question}</h1>
-            {answerButtons}
+            <div className="answer-buttons-container">
+              {answerButtons}
+            </div>
         </div>
     )
 }
