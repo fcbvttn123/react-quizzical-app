@@ -11,6 +11,8 @@ function App() {
   }
   return (
     <div className="main">
+      <div className='yellow-blob'></div>
+      <div className='blue-blob'></div>
       {
         /* Switch Screen conditionally */
         currentScreen == "StartScreen" ? 
