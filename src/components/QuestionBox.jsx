@@ -10,6 +10,7 @@ export function QuestionBox(props) {
               onChange={() =>
                 props.answerButtonOnClick(props.questionId, e.answer_id)
               }
+              disabled={props.answersChecked}
             />
             <label htmlFor={e.answer_id} style={dynamicStyle}>
               {e.answer_value}

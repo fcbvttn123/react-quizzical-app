@@ -76,3 +76,11 @@
 + Quiz Screen: onClick Event on "Check Answer" button
 
 + Quiz Screen: onClick Event on "Play Again" button
+
+    + Change button text 
+
+    + Add results
+
+    + Disable input
+
+    + onClick Event: load questions again
