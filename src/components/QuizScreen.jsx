@@ -7,6 +7,7 @@ let URL = "https://opentdb.com/api.php?amount=5&category=12&difficulty=medium&ty
 
 export function QuizScreen(props) {
     const [questions, setQuestions] = useState([])
+    const [answersChecked, setAnswersChecked] = useState(false)
     function answerButtonOnClick(questionId, answerId) {
         setQuestions(prev => {
             return prev.map(question => {
@@ -66,36 +67,41 @@ export function QuizScreen(props) {
                 answers: customAnswers
             }
         }))
+        setAnswersChecked(prev => !prev)
+    }
+    function resetGame() {
+        getQuestions()
+        setAnswersChecked(prev => !prev)
+    }
+    async function getQuestions() {
+        try {
+            let res = await fetch(URL)
+            let data = await res.json()
+            let quesArr = data.results
+            quesArr && quesArr.length > 0 && setQuestions(quesArr.map(e => {
+                // Decode incorrect answer array
+                e.incorrect_answers = e.incorrect_answers.map(e => decode(e, {level: "html5"}))
+                // Add correct answer and Shuffle answers array 
+                let answers = shuffleArray([decode(e.correct_answer, {level: "html5"}), ...e.incorrect_answers])
+                // Update answers array
+                answers = answers.map(str => ({
+                    answer_id: nanoid(), 
+                    answer_value: str, 
+                    beChosen: false,
+                    backgroundColor: "white"
+                }))
+                return {
+                    question_id: nanoid(),
+                    question: decode(e.question, {level: "html5"}), 
+                    correct_answer: e.correct_answer,
+                    answers
+                }
+            }))
+        } catch (error) {
+            console.error("Error fetching questions:", error);
+        }
     }
     useEffect(() => {
-        async function getQuestions() {
-            try {
-                let res = await fetch(URL)
-                let data = await res.json()
-                let quesArr = data.results
-                quesArr && quesArr.length > 0 && setQuestions(quesArr.map(e => {
-                    // Decode incorrect answer array
-                    e.incorrect_answers = e.incorrect_answers.map(e => decode(e, {level: "html5"}))
-                    // Add correct answer and Shuffle answers array 
-                    let answers = shuffleArray([decode(e.correct_answer, {level: "html5"}), ...e.incorrect_answers])
-                    // Update answers array
-                    answers = answers.map(str => ({
-                        answer_id: nanoid(), 
-                        answer_value: str, 
-                        beChosen: false,
-                        backgroundColor: "white"
-                    }))
-                    return {
-                        question_id: nanoid(),
-                        question: decode(e.question, {level: "html5"}), 
-                        correct_answer: e.correct_answer,
-                        answers
-                    }
-                }))
-            } catch (error) {
-                console.error("Error fetching questions:", error);
-            }
-        }
         getQuestions()
     }, [])
     return (
@@ -103,10 +109,10 @@ export function QuizScreen(props) {
             <h1>Quiz Screen</h1>
             <div className="all-questions">
                 {questions.map(e => {
-                    return <QuestionBox key={e.question_id} questionId={e.question_id} question={e.question} answers={e.answers} answerButtonOnClick={answerButtonOnClick}/>
+                    return <QuestionBox key={e.question_id} questionId={e.question_id} question={e.question} answers={e.answers} answerButtonOnClick={answerButtonOnClick} answersChecked={answersChecked}/>
                 })}
             </div>
-            <button onClick={checkAnswers}>Check Answers</button>
+            <button onClick={answersChecked ? resetGame : checkAnswers}>{answersChecked ? "Play Again" : "Check Answers"}</button>
         </div>
     )
 }
